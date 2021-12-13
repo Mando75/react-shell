@@ -1,65 +1,81 @@
-import React, {
-  KeyboardEventHandler,
-  PropsWithChildren,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import { DEFAULT_PROPS, DEFAULT_STRINGS } from "~/web-shell.const";
-import { DeepPartial } from "~/support/util/deep-partial";
+import React, { KeyboardEventHandler, useCallback, useState } from "react";
+import {
+  DEFAULT_COMMANDS,
+  DEFAULT_PROPS,
+  DEFAULT_STRINGS,
+} from "~/web-shell.const";
 import { usePrompt } from "~/support/hooks/use-prompt";
-import { useInputCallbacks } from "~/support/hooks/use-input-callbacks";
 import { useBuffer } from "~/support/hooks/use-buffer";
+import "./web-shell.css";
+import { ICommands, useCommands } from "~/support/hooks/use-commands";
 
 export interface IWebShellProps {
-  autoFocus: boolean;
-  prompt: string;
-  strings: IWebShellStrings;
+  commands: ICommands;
+  className?: string;
+  autoFocus?: boolean;
+  prompt?: string;
+  strings?: Partial<IWebShellStrings>;
 }
 
 export interface IWebShellStrings {
+  ERROR_PREFACE: string;
   INVALID_COMMAND: string;
   WELCOME: string;
 }
 
-function WebShell(props: DeepPartial<IWebShellProps> = {}) {
+function WebShell(props: IWebShellProps) {
   const mergedProps = { ...DEFAULT_PROPS, ...props };
   const { prompt, autoFocus, ...rest } = mergedProps;
   const strings = { ...DEFAULT_STRINGS, ...rest.strings };
+  const commands = { ...DEFAULT_COMMANDS, ...rest.commands };
 
-  const { inputBuffer, appendToBuffer } = useBuffer(strings.WELCOME);
   const [allowInput, setAllowInput] = useState(true);
   const { promptRef, focus } = usePrompt(autoFocus);
+  const { inputBuffer, appendToBuffer, readInput, clearBuffer } = useBuffer(
+    strings.WELCOME,
+    promptRef
+  );
+  const { executeCommand } = useCommands({
+    commands,
+    bufferOptions: {
+      clear: clearBuffer,
+      buffer: inputBuffer,
+      append: appendToBuffer,
+    },
+    strings,
+    setAllowInput,
+  });
 
-  const handleEnter = useCallback(() => {
+  const handleEnter = useCallback(async () => {
     if (!promptRef.current) return;
 
-    const userInput = promptRef.current.innerText ?? "";
-    const commandName = userInput.trim().split(" ").at(0);
-    appendToBuffer(prompt + userInput);
-    promptRef.current.innerText = "";
-    console.log(commandName);
+    const userInput = readInput();
+    const commandName = userInput.at(0);
+    appendToBuffer(prompt + userInput.join(" "));
+    await executeCommand(commandName ?? "", userInput);
   }, [promptRef, appendToBuffer]);
 
   const handleKeyDown = useCallback<KeyboardEventHandler<HTMLSpanElement>>(
-    (e) => {
+    async (e) => {
       if (e.key === "Enter") {
         e.preventDefault();
-        handleEnter();
+        await handleEnter();
       }
     },
     [handleEnter]
   );
 
   return (
-    <div className="web-shell" onClick={focus}>
+    <div className={`web-shell ${rest.className}`} onClick={focus}>
       {inputBuffer.map((str, index) => (
-        <p key={index}>{str}</p>
+        <p key={index} className="buffer-item">
+          {str}
+        </p>
       ))}
-      <div className="shell-prompt">
-        <span>{prompt}</span>
+      <div className="prompt-wrapper">
+        <span className="shell-prompt">{prompt}</span>
         <span
+          className="shell-input"
           role="textbox"
           spellCheck="false"
           contentEditable={allowInput}

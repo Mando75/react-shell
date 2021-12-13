@@ -1,3 +1,31 @@
 .web-shell {
-    color: red;
+    cursor: text;
+    /* Colors */
+    background-color: black;
+    color: fuchsia;
+
+    /* Sizing */
+    padding: 8px;
+
+    /* font */
+    font-size: 18px;
+    font-family: monospace;
+}
+
+.prompt-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.shell-prompt {
+    margin-right: .7rem;
+}
+
+.shell-input {
+    display: inline-block;
+    outline: none;
+    vertical-align: top;
+    flex-grow: 1;
 }
