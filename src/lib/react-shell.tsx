@@ -1,29 +1,25 @@
-import React, { KeyboardEventHandler, useCallback, useState } from "react";
-import {
-  DEFAULT_COMMANDS,
-  DEFAULT_PROPS,
-  DEFAULT_STRINGS,
-} from "~/web-shell.const";
-import { usePrompt } from "~/support/hooks/use-prompt";
-import { useBuffer } from "~/support/hooks/use-buffer";
-import "./web-shell.css";
-import { ICommands, useCommands } from "~/support/hooks/use-commands";
+import React, {KeyboardEventHandler, useCallback, useState} from "react";
+import {DEFAULT_COMMANDS, DEFAULT_PROPS, DEFAULT_STRINGS,} from "~/react-shell.const";
+import {usePrompt} from "~/support/hooks/use-prompt";
+import {useBuffer} from "~/support/hooks/use-buffer";
+import "./react-shell.css";
+import {ICommands, useCommands} from "~/support/hooks/use-commands";
 
-export interface IWebShellProps {
+export interface IReactShellProps {
   commands: ICommands;
   className?: string;
   autoFocus?: boolean;
   prompt?: string;
-  strings?: Partial<IWebShellStrings>;
+  strings?: Partial<IReactShellStrings>;
 }
 
-export interface IWebShellStrings {
+export interface IReactShellStrings {
   ERROR_PREFACE: string;
   INVALID_COMMAND: string;
   WELCOME: string;
 }
 
-function WebShell(props: IWebShellProps) {
+function ReactShell(props: IReactShellProps) {
   const mergedProps = { ...DEFAULT_PROPS, ...props };
   const { prompt, autoFocus, ...rest } = mergedProps;
   const strings = { ...DEFAULT_STRINGS, ...rest.strings };
@@ -66,7 +62,7 @@ function WebShell(props: IWebShellProps) {
   );
 
   return (
-    <div className={`web-shell ${rest.className}`} onClick={focus}>
+    <div className={`react-shell ${rest.className}`} onClick={focus}>
       {inputBuffer.map((str, index) => (
         <p key={index} className="buffer-item">
           {str}
@@ -87,4 +83,4 @@ function WebShell(props: IWebShellProps) {
   );
 }
 
-export default WebShell;
+export default ReactShell;

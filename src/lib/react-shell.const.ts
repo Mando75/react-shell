@@ -1,10 +1,10 @@
-import { IWebShellProps, IWebShellStrings } from "./web-shell";
-import { ICommands } from "~/support/hooks/use-commands";
+import {IReactShellProps, IReactShellStrings} from "./react-shell";
+import {ICommands} from "~/support/hooks/use-commands";
 
-export const DEFAULT_STRINGS: IWebShellStrings = {
+export const DEFAULT_STRINGS: IReactShellStrings = {
   ERROR_PREFACE: "An error occurred",
   INVALID_COMMAND: "Unrecognized Command",
-  WELCOME: "Welcome to web-shell",
+  WELCOME: "Welcome to react-shell",
 };
 
 export const DEFAULT_COMMANDS: ICommands = {
@@ -14,15 +14,15 @@ export const DEFAULT_COMMANDS: ICommands = {
   },
 };
 
-interface IWebShellOptions extends IWebShellProps {
+interface IReactShellOptions extends IReactShellProps {
   commands: ICommands;
   className: string;
   autoFocus: boolean;
   prompt: string;
-  strings: IWebShellStrings;
+  strings: IReactShellStrings;
 }
 
-export const DEFAULT_PROPS: IWebShellOptions = {
+export const DEFAULT_PROPS: IReactShellOptions = {
   commands: DEFAULT_COMMANDS,
   className: "",
   autoFocus: true,

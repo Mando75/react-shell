@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import WebShell, { IWebShellStrings } from "../lib/web-shell";
+import ReactShell, {IReactShellStrings} from "../lib/react-shell";
 
 const prompt = "λ ";
 
-const strings: Partial<IWebShellStrings> = {
+const strings: Partial<IReactShellStrings> = {
   WELCOME: `Searching for  executable...
      Loading shared libraries...
      Package loaded successfully. Ritual ready to begin`,
@@ -12,7 +12,7 @@ const strings: Partial<IWebShellStrings> = {
 
 ReactDOM.render(
   <React.StrictMode>
-    <WebShell commands={{}} strings={strings} prompt={prompt} />
+    <ReactShell commands={{}} strings={strings} prompt={prompt} />
   </React.StrictMode>,
   document.getElementById("root")
 );
