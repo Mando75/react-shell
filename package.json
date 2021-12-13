@@ -1,6 +1,6 @@
 {
   "name": "@mando75/react-shell",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "dev": "vite",
     "build": "vite build && tsc",
@@ -11,7 +11,7 @@
   },
   "main": "dist/react-shell.umd.js",
   "module": "dist/react-shell.es.js",
-  "license": "ISC",
+  "license": "GPL-3.0",
   "types": "dist/web-shell.d.ts",
   "dependencies": {
     "react": "^17.0.2",
