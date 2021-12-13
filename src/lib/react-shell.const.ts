@@ -1,5 +1,5 @@
 import {IReactShellProps, IReactShellStrings} from "./react-shell";
-import {ICommands} from "~/support/hooks/use-commands";
+import {ICommands} from "./support/hooks/use-commands";
 
 export const DEFAULT_STRINGS: IReactShellStrings = {
   ERROR_PREFACE: "An error occurred",

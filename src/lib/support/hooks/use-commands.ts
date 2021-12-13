@@ -1,4 +1,4 @@
-import {IReactShellStrings} from "~/react-shell";
+import {IReactShellStrings} from "../../react-shell";
 import {useCallback} from "react";
 
 export interface BufferOptions {

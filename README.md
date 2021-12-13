@@ -2,6 +2,10 @@
 
 A React component for building your own interactive shell in the browser.
 
+## Warning
+
+This is a very early version and is probably not ready for production use. I plan on integrating it with a project I am working on, and using that real-world integration as a method to iron out the API. Right now, the component API should be considered unstable between versions.
+
 ## Features
 
 * Fully customizable commands
@@ -9,6 +13,26 @@ A React component for building your own interactive shell in the browser.
     * The arguments passed by the user
     * buffer controls for modifying the buffer output (appending/clearing messages)
 * Async (Promise) commands are supported out of the box (input is disabled until promise resolves)
+
+## Getting Started
+
+Install via your package manager of choice
+
+```shell
+npm install @mando75/react-shell
+# OR
+yarn add @mando75/react-shell
+# OR
+pnpm add @mando75/react-shell
+```
+
+Import Component + styles into your app
+
+```typescript
+import ReactShell, { IReactShellProps } from '@mando75/react-shell'
+
+
+```
 
 ## Roadmap
 

@@ -5,11 +5,6 @@ import path from "path";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  resolve: {
-    alias: {
-      "~": path.resolve(__dirname, "src", "lib"),
-    },
-  },
   build: {
     lib: {
       entry: path.resolve(__dirname, "src", "lib", "react-shell.tsx"),

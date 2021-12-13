@@ -18,9 +18,6 @@
     "jsx": "react-jsx",
     "outDir": "./dist",
     "baseUrl": "./",
-    "paths": {
-      "~/*": ["./src/lib/*"]
-    }
   },
   "include": ["./src/lib"]
 }
