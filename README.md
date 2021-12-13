@@ -39,6 +39,9 @@ import ReactShell, { IReactShellProps } from '@mando75/react-shell'
 - [ ] Optional built in commands such as `help` and `clear`
 - [ ] More control over buffer output formatting
 
+
+## Acknowledgements
+
 This project is heavily inspired by [`react-command-line`](https://github.com/podrezo/react-command-line). While I did
 write this from scratch, I borrowed several concepts from that project, and I would like to credit their contribution. 
 
