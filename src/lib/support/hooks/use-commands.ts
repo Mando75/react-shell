@@ -1,5 +1,5 @@
-import {IReactShellStrings} from "../../react-shell";
-import {useCallback} from "react";
+import { IReactShellStrings } from "../../react-shell";
+import { useCallback } from "react";
 
 export interface BufferOptions {
   buffer: ReadonlyArray<string>;

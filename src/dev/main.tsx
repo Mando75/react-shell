@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ReactShell, {IReactShellStrings} from "../lib/react-shell";
+import ReactShell, { IReactShellStrings } from "../lib/react-shell";
 
 const prompt = "λ ";
 
