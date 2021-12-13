@@ -28,9 +28,29 @@ pnpm add @mando75/react-shell
 
 Import Component + styles into your app
 
-```typescript
-import ReactShell, { IReactShellProps } from '@mando75/react-shell'
+```typescript jsx
+import ReactShell, { ICommands } from '@mando75/react-shell'
+import '@mando75/react-shell/dist/styles.css'
 
+const commands: ICommands = {
+  /**
+   * A command to print whatever the user inputs back in the buffer
+   */
+  echo: (args, buffer) => {
+    const echoInput = args.split(1).join(' ')
+    buffer.append(echoInput)
+  },
+  /**
+   * Remove all text from the buffer
+   */
+  clear: (_args, buffer) => {
+    buffer.clear()
+  }
+}
+
+export function App() {
+  return <ReactShell commands={commands} />
+}
 
 ```
 
@@ -38,6 +58,7 @@ import ReactShell, { IReactShellProps } from '@mando75/react-shell'
 
 - [ ] Optional built in commands such as `help` and `clear`
 - [ ] More control over buffer output formatting
+- [ ] More real shell features like piping
 
 
 ## Acknowledgements
