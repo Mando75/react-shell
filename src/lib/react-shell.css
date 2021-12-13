@@ -1,31 +1,28 @@
 .react-shell {
-  cursor: text;
-  /* Colors */
   background-color: black;
   color: fuchsia;
-
-  /* Sizing */
-  padding: 8px;
-
-  /* font */
-  font-size: 18px;
+  cursor: text;
   font-family: monospace;
+  font-size: 18px;
+  overflow-wrap: break-word;
+  padding: 8px;
 }
 
 .prompt-wrapper {
+  align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
 }
 
 .shell-prompt {
+  align-items: center;
+  display: inline-flex;
   margin-right: 0.7rem;
 }
 
 .shell-input {
   display: inline-block;
-  outline: none;
-  vertical-align: top;
   flex-grow: 1;
+  outline: thin solid;
 }
