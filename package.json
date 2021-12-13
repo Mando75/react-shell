@@ -6,8 +6,11 @@
     "build": "vite build && tsc",
     "preview": "vite preview",
     "test": "jest",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "prepublish": "pnpm run build"
   },
+  "main": "dist/react-shell.umd.js",
+  "module": "dist/react-shell.es.js",
   "license": "ISC",
   "types": "dist/web-shell.d.ts",
   "dependencies": {
@@ -15,7 +18,8 @@
     "react-dom": "^17.0.2"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "!dist/**/*.spec.*"
   ],
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.1",

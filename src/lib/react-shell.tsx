@@ -4,6 +4,7 @@ import { usePrompt } from "./support/hooks/use-prompt";
 import { useBuffer } from "./support/hooks/use-buffer";
 import "./react-shell.css";
 import { ICommands, useCommands } from "./support/hooks/use-commands";
+import { useTestid } from "./support/util/use-testid";
 
 export type { ICommands, CommandFn } from "./support/hooks/use-commands";
 
@@ -64,7 +65,7 @@ function ReactShell(props: IReactShellProps) {
 
   return (
     <div className={`react-shell ${rest.className}`} onClick={focus}>
-      <div data-testid="buffer-wrapper">
+      <div {...useTestid("buffer-wrapper")}>
         {inputBuffer.map((str, index) => (
           <p key={index} className="buffer-item">
             {str}
