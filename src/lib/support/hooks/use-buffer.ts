@@ -1,20 +1,57 @@
-import { RefObject, useState } from "react";
+import { RefObject, useReducer } from "react";
+
+type BufferState = {
+  buffer: ReadonlyArray<string>;
+  options: {
+    maxBufferSize: number;
+  };
+};
+
+interface AppendAction {
+  type: "append";
+  payload: string | Array<string>;
+}
+
+interface ClearAction {
+  type: "clear";
+}
+
+type BufferAction = AppendAction | ClearAction;
+
+function bufferReducer(state: BufferState, action: BufferAction): BufferState {
+  switch (action.type) {
+    case "append":
+      return appendHandler(state, action);
+    case "clear":
+      return { ...state, buffer: [] };
+    default:
+      return state;
+  }
+}
+
+function appendHandler(
+  state: BufferState,
+  { payload }: AppendAction
+): BufferState {
+  const split = Array.isArray(payload)
+    ? payload.flatMap((str) => str.split("\n"))
+    : payload.split("\n");
+  const newLength = split.length + state.buffer.length;
+  const diff = newLength - state.options.maxBufferSize;
+  const start = diff > 0 ? diff : 0;
+
+  const buffer = state.buffer.concat(split).slice(start);
+  return { ...state, buffer };
+}
 
 export function useBuffer(initial: string, ref: RefObject<HTMLSpanElement>) {
-  const [inputBuffer, setInputBuffer] = useState<ReadonlyArray<string>>(
-    initial.split("\n")
-  );
-
-  const appendToBuffer = (input: string | Array<string>) => {
-    const split = Array.isArray(input)
-      ? input.flatMap((str) => str.split("\n"))
-      : input.split("\n");
-    setInputBuffer((state) => state.concat(split));
+  const defaultState: BufferState = {
+    buffer: initial.split("\n"),
+    options: {
+      maxBufferSize: 1000,
+    },
   };
-
-  const clearBuffer = () => {
-    setInputBuffer([]);
-  };
+  const [{ buffer }, dispatch] = useReducer(bufferReducer, defaultState);
 
   const readInput = (): Array<string> => {
     if (!ref.current) return [];
@@ -24,5 +61,10 @@ export function useBuffer(initial: string, ref: RefObject<HTMLSpanElement>) {
     return read.trim().split(" ");
   };
 
-  return { inputBuffer, appendToBuffer, clearBuffer, readInput };
+  const appendToBuffer = (payload: string | Array<string>) =>
+    dispatch({ type: "append", payload });
+
+  const clearBuffer = () => dispatch({ type: "clear" });
+
+  return { readInput, buffer, appendToBuffer, clearBuffer };
 }

@@ -29,7 +29,7 @@ function ReactShell(props: IReactShellProps) {
 
   const [allowInput, setAllowInput] = useState(true);
   const { promptRef, focus } = usePrompt(autoFocus);
-  const { inputBuffer, appendToBuffer, readInput, clearBuffer } = useBuffer(
+  const { buffer, appendToBuffer, readInput, clearBuffer } = useBuffer(
     strings.WELCOME,
     promptRef
   );
@@ -37,7 +37,7 @@ function ReactShell(props: IReactShellProps) {
     commands,
     bufferOptions: {
       clear: clearBuffer,
-      buffer: inputBuffer,
+      buffer,
       append: appendToBuffer,
     },
     strings,
@@ -66,7 +66,7 @@ function ReactShell(props: IReactShellProps) {
   return (
     <div className={`react-shell ${rest.className}`} onClick={focus}>
       <div {...useTestid("buffer-wrapper")}>
-        {inputBuffer.map((str, index) => (
+        {buffer.map((str, index) => (
           <p key={index} className="buffer-item">
             {str}
           </p>
