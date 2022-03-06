@@ -13,6 +13,7 @@ interface IReactShellOptions extends IReactShellProps {
   autoFocus: boolean;
   prompt: string;
   strings: IReactShellStrings;
+  maxBufferSize: number;
 }
 
 export const DEFAULT_PROPS: IReactShellOptions = {
@@ -21,4 +22,5 @@ export const DEFAULT_PROPS: IReactShellOptions = {
   autoFocus: true,
   prompt: "~ ",
   strings: DEFAULT_STRINGS,
+  maxBufferSize: 1000,
 };

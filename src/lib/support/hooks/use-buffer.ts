@@ -1,11 +1,11 @@
 import { RefObject, useReducer } from "react";
 
-type BufferState = {
+export interface BufferState {
   buffer: ReadonlyArray<string>;
   options: {
     maxBufferSize: number;
   };
-};
+}
 
 interface AppendAction {
   type: "append";
@@ -44,12 +44,14 @@ function appendHandler(
   return { ...state, buffer };
 }
 
-export function useBuffer(initial: string, ref: RefObject<HTMLSpanElement>) {
+export function useBuffer(
+  initial: string,
+  ref: RefObject<HTMLSpanElement>,
+  options: BufferState["options"]
+) {
   const defaultState: BufferState = {
     buffer: initial.split("\n"),
-    options: {
-      maxBufferSize: 1000,
-    },
+    options,
   };
   const [{ buffer }, dispatch] = useReducer(bufferReducer, defaultState);
 

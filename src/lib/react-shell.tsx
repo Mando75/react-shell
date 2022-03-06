@@ -14,6 +14,7 @@ export interface IReactShellProps {
   autoFocus?: boolean;
   prompt?: string;
   strings?: Partial<IReactShellStrings>;
+  maxBufferSize?: number;
 }
 
 export interface IReactShellStrings {
@@ -31,8 +32,10 @@ function ReactShell(props: IReactShellProps) {
   const { promptRef, focus } = usePrompt(autoFocus);
   const { buffer, appendToBuffer, readInput, clearBuffer } = useBuffer(
     strings.WELCOME,
-    promptRef
+    promptRef,
+    mergedProps
   );
+
   const { executeCommand } = useCommands({
     commands,
     bufferOptions: {
